@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "aip-ontology-drift-monitor"
+version = "0.1.0"
+readme = "README.md"
+description = "aip ontology drift monitor"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+dependencies = ['numpy>=1.26', 'scipy>=1.11', 'pydantic>=2.7']
+[project.optional-dependencies]
+test = ["pytest>=8"]
+[project.scripts]
+ontology-drift = "ontology_drift.drift_engine:main"
+[tool.setuptools]
+packages = ["ontology_drift"]
+package-dir = {"ontology_drift" = "src"}
+[tool.pytest.ini_options]
+testpaths = ["tests"]
