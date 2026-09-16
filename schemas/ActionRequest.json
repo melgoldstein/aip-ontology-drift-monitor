@@ -1,0 +1,29 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "action_type": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Action Type",
+      "type": "string"
+    },
+    "object_id": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Object Id",
+      "type": "string"
+    },
+    "expected_revision": {
+      "minimum": 0,
+      "title": "Expected Revision",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "action_type",
+    "object_id",
+    "expected_revision"
+  ],
+  "title": "ActionRequest",
+  "type": "object"
+}

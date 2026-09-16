@@ -1,0 +1,49 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "property_name": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Property Name",
+      "type": "string"
+    },
+    "minimum_samples": {
+      "default": 100,
+      "minimum": 20,
+      "title": "Minimum Samples",
+      "type": "integer"
+    },
+    "bins": {
+      "default": 10,
+      "maximum": 100,
+      "minimum": 2,
+      "title": "Bins",
+      "type": "integer"
+    },
+    "psi_limit": {
+      "default": 0.2,
+      "exclusiveMinimum": 0,
+      "title": "Psi Limit",
+      "type": "number"
+    },
+    "ks_limit": {
+      "default": 0.2,
+      "exclusiveMinimum": 0,
+      "maximum": 1,
+      "title": "Ks Limit",
+      "type": "number"
+    },
+    "maximum_missing_fraction": {
+      "default": 0.05,
+      "exclusiveMaximum": 1,
+      "minimum": 0,
+      "title": "Maximum Missing Fraction",
+      "type": "number"
+    }
+  },
+  "required": [
+    "property_name"
+  ],
+  "title": "DriftPolicy",
+  "type": "object"
+}

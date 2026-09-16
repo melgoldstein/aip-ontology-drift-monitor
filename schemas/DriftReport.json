@@ -1,0 +1,68 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "property_name": {
+      "title": "Property Name",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "healthy",
+        "drift",
+        "invalid"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "reference_count": {
+      "minimum": 0,
+      "title": "Reference Count",
+      "type": "integer"
+    },
+    "observed_count": {
+      "minimum": 0,
+      "title": "Observed Count",
+      "type": "integer"
+    },
+    "psi": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Psi"
+    },
+    "ks_statistic": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Ks Statistic"
+    },
+    "reason": {
+      "title": "Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "property_name",
+    "status",
+    "reference_count",
+    "observed_count",
+    "reason"
+  ],
+  "title": "DriftReport",
+  "type": "object"
+}
