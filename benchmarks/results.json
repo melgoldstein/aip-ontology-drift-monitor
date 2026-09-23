@@ -1,0 +1,7 @@
+{
+  "python": "3.12.14",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "samples_per_window": 1000,
+  "median_us": 720.95,
+  "p95_us": 816.41
+}
