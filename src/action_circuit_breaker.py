@@ -22,7 +22,9 @@ class ActionCircuitBreaker:
             connection.execute(
                 "CREATE TABLE IF NOT EXISTS decisions(id INTEGER PRIMARY KEY, property TEXT NOT NULL, checked REAL NOT NULL, allowed INTEGER NOT NULL, payload TEXT NOT NULL)"
             )
-            connection.execute("INSERT OR IGNORE INTO gate VALUES (?,1,0,0,'{}')", (property_name,))
+            connection.execute(
+                "INSERT OR IGNORE INTO gate VALUES (?,1,0,0,'{}')", (property_name,)
+            )
 
     @contextmanager
     def _connect(self) -> Iterator[sqlite3.Connection]:
@@ -67,7 +69,9 @@ class ActionCircuitBreaker:
                 or not 0 <= age <= self.max_age
                 or DriftReport.model_validate_json(encoded).status != "healthy"
             ):
-                raise RuntimeError("fresh healthy observation and current revision required")
+                raise RuntimeError(
+                    "fresh healthy observation and current revision required"
+                )
             connection.execute(
                 "UPDATE gate SET blocked=0, revision=revision+1 WHERE property=?",
                 (self.property_name,),
@@ -77,7 +81,8 @@ class ActionCircuitBreaker:
         with self._connect() as connection:
             connection.execute("BEGIN IMMEDIATE")
             blocked, revision, checked = connection.execute(
-                "SELECT blocked,revision,checked FROM gate WHERE property=?", (self.property_name,)
+                "SELECT blocked,revision,checked FROM gate WHERE property=?",
+                (self.property_name,),
             ).fetchone()
             now = time.time()
             allowed = (

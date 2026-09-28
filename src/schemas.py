@@ -3,7 +3,9 @@ from pydantic import BaseModel, ConfigDict, Field
 
 
 class DriftPolicy(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True, allow_inf_nan=False, strict=True)
+    model_config = ConfigDict(
+        extra="forbid", frozen=True, allow_inf_nan=False, strict=True
+    )
     property_name: str = Field(min_length=1, max_length=128)
     minimum_samples: int = Field(default=100, ge=20)
     bins: int = Field(default=10, ge=2, le=100)
@@ -13,7 +15,9 @@ class DriftPolicy(BaseModel):
 
 
 class DriftReport(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True, allow_inf_nan=False, strict=True)
+    model_config = ConfigDict(
+        extra="forbid", frozen=True, allow_inf_nan=False, strict=True
+    )
     property_name: str
     status: Literal["healthy", "drift", "invalid"]
     reference_count: int = Field(ge=0)

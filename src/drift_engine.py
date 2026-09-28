@@ -32,11 +32,15 @@ def compare(
             status="invalid",
             reason="insufficient finite samples or missing fraction exceeded",
         )
-    inner_edges = np.unique(np.quantile(finite_reference, np.linspace(0, 1, policy.bins + 1)[1:-1]))
+    inner_edges = np.unique(
+        np.quantile(finite_reference, np.linspace(0, 1, policy.bins + 1)[1:-1])
+    )
     # Constant references need two boundaries to detect shifts in either direction.
     if np.ptp(finite_reference) == 0:
         anchor = finite_reference[0]
-        inner_edges = np.array([np.nextafter(anchor, -np.inf), np.nextafter(anchor, np.inf)])
+        inner_edges = np.array(
+            [np.nextafter(anchor, -np.inf), np.nextafter(anchor, np.inf)]
+        )
     edges = np.r_[-np.inf, inner_edges, np.inf]
     expected = np.histogram(finite_reference, edges)[0].astype(float) + 0.5
     actual = np.histogram(finite_current, edges)[0].astype(float) + 0.5
@@ -55,7 +59,9 @@ def compare(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Compare numeric Ontology property windows")
+    parser = argparse.ArgumentParser(
+        description="Compare numeric Ontology property windows"
+    )
     parser.add_argument("reference", type=Path)
     parser.add_argument("observed", type=Path)
     parser.add_argument("--property", default="sensor_value")

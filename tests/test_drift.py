@@ -52,7 +52,9 @@ def test_stale_and_validation(tmp_path, monkeypatch):
     with pytest.raises(ValidationError):
         DriftPolicy(property_name="a", ks_limit=float("nan"))
     with pytest.raises(ValidationError):
-        ActionRequest(action_type="a", object_id="b", expected_revision=0, override=True)
+        ActionRequest(
+            action_type="a", object_id="b", expected_revision=0, override=True
+        )
 
 
 def test_concurrent_observations_preserve_latch(tmp_path):
@@ -68,14 +70,18 @@ def test_concurrent_observations_preserve_latch(tmp_path):
         revisions = list(executor.map(gate.observe, [healthy, drift, healthy, healthy]))
     assert len(set(revisions)) == 4
     assert not gate.authorize(
-        ActionRequest(action_type="test", object_id="a", expected_revision=max(revisions))
+        ActionRequest(
+            action_type="test", object_id="a", expected_revision=max(revisions)
+        )
     )
 
 
 def test_wrong_property_and_revision(tmp_path):
     gate = ActionCircuitBreaker(tmp_path / "gate.db", "radar_range")
     with pytest.raises(ValueError, match="property mismatch"):
-        gate.observe(compare([1.0] * 100, [1.0] * 100, DriftPolicy(property_name="speed")))
+        gate.observe(
+            compare([1.0] * 100, [1.0] * 100, DriftPolicy(property_name="speed"))
+        )
     revision = gate.observe(compare([1.0] * 100, [1.0] * 100, POLICY))
     with pytest.raises(RuntimeError):
         gate.reset(revision + 1)

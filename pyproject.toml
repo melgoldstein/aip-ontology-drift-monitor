@@ -18,3 +18,7 @@ packages = ["ontology_drift"]
 package-dir = {"ontology_drift" = "src"}
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
