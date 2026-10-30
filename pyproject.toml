@@ -22,3 +22,7 @@ testpaths = ["tests"]
 [tool.ruff]
 line-length = 88
 target-version = "py311"
+
+[project.urls]
+Repository = "https://github.com/cankaan120/aip-ontology-drift-monitor"
+Issues = "https://github.com/cankaan120/aip-ontology-drift-monitor/issues"

@@ -1,5 +1,10 @@
 name: verification
 on: [push, pull_request]
+permissions:
+  contents: read
+concurrency:
+  group: verification-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -20,3 +25,4 @@ jobs:
         with:
           node-version: '22'
       - run: npx --yes --package typescript@5.9.3 tsc --project tsconfig.json
+      - run: python examples/gated_action.py

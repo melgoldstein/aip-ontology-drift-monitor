@@ -2,6 +2,8 @@
   "additionalProperties": false,
   "properties": {
     "property_name": {
+      "maxLength": 128,
+      "minLength": 1,
       "title": "Property Name",
       "type": "string"
     },
@@ -52,6 +54,7 @@
       "title": "Ks Statistic"
     },
     "reason": {
+      "minLength": 1,
       "title": "Reason",
       "type": "string"
     }

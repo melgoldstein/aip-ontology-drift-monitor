@@ -1,5 +1,7 @@
 # AIP Ontology drift monitor
 
+[![Verification](https://github.com/cankaan120/aip-ontology-drift-monitor/actions/workflows/ci.yml/badge.svg)](https://github.com/cankaan120/aip-ontology-drift-monitor/actions/workflows/ci.yml)
+
 Property-window drift detection with a durable, fail-closed action gate. Integrate
 the Python library between property ingestion and a downstream action dispatcher.
 The adapter accepts numeric arrays; no Foundry account or SDK is required.
@@ -60,5 +62,23 @@ Measured on Windows x86-64, Python 3.12.14. The SQLite gate is outside this benc
 Run `python examples/gated_action.py` for a complete healthy-to-blocked transition.
 
 Pydantic rejects unknown request fields and nonfinite policy thresholds. Tests cover
+incomplete healthy reports as well as
 constant references, shifts, missing windows, stale observations and restart latching.
 MIT. Independently implemented integration component; no platform compatibility claim.
+
+## Development
+
+```sh
+git clone https://github.com/cankaan120/aip-ontology-drift-monitor.git
+cd aip-ontology-drift-monitor
+python -m venv .venv
+# Activate .venv with your shell, then:
+python -m pip install -e ".[test]" ruff==0.17.3 build
+python -m pytest -q
+python -m ruff check --select E9,F63,F7,F82 src tests
+python -m ruff format --check src tests
+python -m build
+```
+
+Report defects with the command, input shape or minimal fixture, and runtime version.
+Regression tests should reproduce the failure and preserve the documented units.

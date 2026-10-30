@@ -3,10 +3,21 @@ import numpy as np
 import pytest
 from pydantic import ValidationError
 from ontology_drift.drift_engine import compare
-from ontology_drift.schemas import DriftPolicy, ActionRequest
+from ontology_drift.schemas import DriftPolicy, ActionRequest, DriftReport
 from ontology_drift.action_circuit_breaker import ActionCircuitBreaker
 
 POLICY = DriftPolicy(property_name="radar_range")
+
+
+def test_incomplete_healthy_report_rejected():
+    with pytest.raises(ValidationError, match="measured metrics"):
+        DriftReport(
+            property_name="range",
+            status="healthy",
+            reference_count=0,
+            observed_count=0,
+            reason="unchecked",
+        )
 
 
 def test_shift_and_identity():

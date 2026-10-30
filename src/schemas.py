@@ -1,5 +1,5 @@
 from typing import Literal
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 class DriftPolicy(BaseModel):
@@ -18,13 +18,26 @@ class DriftReport(BaseModel):
     model_config = ConfigDict(
         extra="forbid", frozen=True, allow_inf_nan=False, strict=True
     )
-    property_name: str
+    property_name: str = Field(min_length=1, max_length=128)
     status: Literal["healthy", "drift", "invalid"]
     reference_count: int = Field(ge=0)
     observed_count: int = Field(ge=0)
     psi: float | None = Field(default=None, ge=0)
     ks_statistic: float | None = Field(default=None, ge=0, le=1)
-    reason: str
+    reason: str = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def complete_metrics(self) -> "DriftReport":
+        if self.status != "invalid" and (
+            self.psi is None
+            or self.ks_statistic is None
+            or self.reference_count == 0
+            or self.observed_count == 0
+        ):
+            raise ValueError(
+                "healthy/drift reports require measured metrics and nonempty windows"
+            )
+        return self
 
 
 class ActionRequest(BaseModel):
