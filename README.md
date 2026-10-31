@@ -1,6 +1,8 @@
 # AIP Ontology drift monitor
 
-[![Verification](https://github.com/cankaan120/aip-ontology-drift-monitor/actions/workflows/ci.yml/badge.svg)](https://github.com/cankaan120/aip-ontology-drift-monitor/actions/workflows/ci.yml)
+[Portfolio: melgoldstein.com](https://melgoldstein.com/)
+
+[![Verification](https://github.com/melgoldstein/aip-ontology-drift-monitor/actions/workflows/ci.yml/badge.svg)](https://github.com/melgoldstein/aip-ontology-drift-monitor/actions/workflows/ci.yml)
 
 Property-window drift detection with a durable, fail-closed action gate. Integrate
 the Python library between property ingestion and a downstream action dispatcher.
@@ -69,7 +71,7 @@ MIT. Independently implemented integration component; no platform compatibility 
 ## Development
 
 ```sh
-git clone https://github.com/cankaan120/aip-ontology-drift-monitor.git
+git clone https://github.com/melgoldstein/aip-ontology-drift-monitor.git
 cd aip-ontology-drift-monitor
 python -m venv .venv
 # Activate .venv with your shell, then:
